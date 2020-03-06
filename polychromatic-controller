@@ -2533,9 +2533,12 @@ class PageLoaded():
         trans.push('#dialog-rename-ok', _("Save Changes"))
         trans.push('#str-browse-icon', _("Browse Icon"))
 
+        #Change for the extra keyboard layouts
+         device_name = str(appobj.active_device.name)
+
         # Initialise keyboard layout
         js_exec = appobj.webkit.JavaScriptExecutor(appobj.webkit)
-        kb_callback = appobj.webkit.JavaScriptExecutor(None, wrapper="keyboard_obj.load(function(){{{0}}});")
+        kb_callback = appobj.webkit.JavaScriptExecutor(None, wrapper="keyboard_obj.load(\""+ device_name + "\", function(){{{0}}});")
 
         # Initalise colour picker
         appobj.print_colour_options("editor-colour", "#colour-selection", [0, 255, 0], "profile")
