@@ -24,7 +24,7 @@
  */
 function cmd(instruction) {
   document.title = instruction;
-  alert(instruction);
+  
 }
 
 
