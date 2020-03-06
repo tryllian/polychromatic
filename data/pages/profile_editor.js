@@ -308,15 +308,34 @@ function Keyboard(keyboard_element_id, keyboard_svg_path) {
         return exists;
     };
 
-    /**
-     * Load the keyboard SVG into the keyboard container
+ /**
+     * Returns path to the keyboard's SVG file
+     *
+	 * @param model {string} Keyboard model name
      */
-    this.load = function (callback) {
+	this.svg_path = function (model) {
+		var map = "blackwidow-chroma-keyboard";
+		switch (model) {
+			case "Razer BlackWidow Elite":
+				map = "blackwidow-elite-keyboard";
+				break;
+            case "Razer Mamba Elite":
+				map = "mamba-elite-mouse";
+				break;
+		}
+		return "../mapping/"+map+"-layout.svg";
+	}
+
+   /**
+     * Load the keyboard SVG into the keyboard container
+     *
+	 * @param model {string} Keyboard model name
+	 * @param callback {function} This function will be called after load
+     */
+    this.load = function (model, callback) {
+        
         snap_object = Snap("#" + keyboard_id);
-
-
-
-        Snap.load(svg_path, function (svg_contents) {
+        Snap.load(this.svg_path(model), function (svg_contents) {
             snap_object.append(svg_contents);
 
             keyboard_obj.setup();
@@ -326,11 +345,11 @@ function Keyboard(keyboard_element_id, keyboard_svg_path) {
             }
         });
     }
-}
+} 
 
 
 // Initialise keyboard object
-var keyboard_obj = new Keyboard("keyboard-div", "../mapping/blackwidow-chroma-keyboard-layout.svg");
+var keyboard_obj = new Keyboard("keyboard-div");
 
 
 /**
@@ -345,7 +364,6 @@ function key(elem, row, col)
     // Get colour box
     var colour_box = $('#editor-colour-profile-preview');
     var picker_colour = colour_box.css("background-color");
-
     if(mode == 'set') {
         // Set key colour
         keyboard_obj.set_key_colour_by_id(elem.id, picker_colour);

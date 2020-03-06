@@ -2533,8 +2533,7 @@ class PageLoaded():
         trans.push('#dialog-rename-ok', _("Save Changes"))
         trans.push('#str-browse-icon', _("Browse Icon"))
 
-        #Change for the extra keyboard layouts
-         device_name = str(appobj.active_device.name)
+        device_name = str(appobj.active_device.name)
 
         # Initialise keyboard layout
         js_exec = appobj.webkit.JavaScriptExecutor(appobj.webkit)
